@@ -98,6 +98,7 @@ namespace Mapbox.Examples
 		{
 
 			float rotationAngle = _useDeviceOrientation ? location.DeviceOrientation : location.UserHeading;
+			//Debug.Log($"Maybe rotating by {rotationAngle}");
 
 			if (_useNegativeAngle) { rotationAngle *= -1f; }
 
@@ -146,7 +147,7 @@ namespace Mapbox.Examples
 			}
 			else
 			{
-				euler.y = -newAngle;
+				euler.y = newAngle;
 
 				euler.x = currentEuler.x;
 				euler.z = currentEuler.z;
