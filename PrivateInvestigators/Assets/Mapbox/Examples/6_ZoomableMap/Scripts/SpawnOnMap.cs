@@ -5,9 +5,10 @@
 	using Mapbox.Unity.Map;
 	using Mapbox.Unity.MeshGeneration.Factories;
 	using Mapbox.Unity.Utilities;
-	using System.Collections.Generic;
+	using System.Collections;
+    using System.Collections.Generic;
 
-	public class SpawnOnMap : MonoBehaviour
+    public class SpawnOnMap : MonoBehaviour
 	{
 		[SerializeField]
 		AbstractMap _map;
@@ -38,6 +39,7 @@
 				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 				_spawnedObjects.Add(instance);
 			}
+			StartCoroutine(ActivateGameObjects());
 		}
 
 		private void Update()
@@ -50,6 +52,18 @@
 				spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location, true);
 				spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 			}
+		}
+
+		private IEnumerator ActivateGameObjects()
+		{
+			yield return new WaitForSeconds(4.0f);
+			int count = _spawnedObjects.Count;
+			for (int i = 0; i < count; i++)
+			{
+				var spawnedObject = _spawnedObjects[i];
+				spawnedObject.SetActive(true);
+			}
+			yield return null;
 		}
 	}
 }
