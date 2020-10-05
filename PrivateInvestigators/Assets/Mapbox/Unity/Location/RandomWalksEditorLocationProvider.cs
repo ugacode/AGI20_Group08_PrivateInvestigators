@@ -43,15 +43,15 @@
 				{
 					var newLocation = previousLocation.Value;
 
-					var newMomentum = UnityEngine.Random.Range(0.0f, 25.0f);
+					var newMomentum = UnityEngine.Random.Range(0.0f, 40.0f);
 					if (newMomentum < 1.0f || momentum == Vector2d.zero)
 					{
 						momentum.x = UnityEngine.Random.Range(-1.0f, 1.0f);
 						momentum.y = UnityEngine.Random.Range(-1.0f, 1.0f);
 					}
 
-					var randomX = 0.00001 * momentum.x * UnityEngine.Random.Range(0.2f, 1.0f);
-					var randomY = 0.00001 * momentum.y * UnityEngine.Random.Range(0.2f, 1.0f);
+					var randomX = 0.00001 * momentum.x * UnityEngine.Random.Range(0.35f, 1.0f);
+					var randomY = 0.00001 * momentum.y * UnityEngine.Random.Range(0.35f, 1.0f);
 					newLocation.x += randomX;
 					newLocation.y += randomY;
 					previousLocation = newLocation;
