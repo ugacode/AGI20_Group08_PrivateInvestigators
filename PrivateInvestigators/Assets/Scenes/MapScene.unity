@@ -2081,7 +2081,7 @@ MonoBehaviour:
       requiredOptions:
         exaggerationFactor: 1
       colliderOptions:
-        addCollider: 1
+        addCollider: 0
       modificationOptions:
         sampleCount: 10
         useRelativeHeight: 1
