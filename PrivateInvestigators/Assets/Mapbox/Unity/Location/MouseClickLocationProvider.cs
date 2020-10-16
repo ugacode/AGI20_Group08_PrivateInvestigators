@@ -60,11 +60,18 @@ public class MouseClickLocationProvider : AbstractEditorLocationProvider
         _currentLocation.IsUserHeadingUpdated = true;
     }
 
+#if UNITY_EDITOR
     override protected void Awake()
     {
         base.Awake();
         previousLocation = Conversions.StringToLatLon(_initialLatitudeLongitude);
     }
+#else
+    void Awake()
+    {
+        previousLocation = Conversions.StringToLatLon(_initialLatitudeLongitude);
+    }
+#endif
 
     // Update is called once per frame
     void Update()
