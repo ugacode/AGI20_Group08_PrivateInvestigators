@@ -69,6 +69,8 @@ public class MouseClickLocationProvider : AbstractEditorLocationProvider
 #else
     void Awake()
     {
+        _wait = new WaitForSeconds(_updateInterval);
+		StartCoroutine(QueryLocation());
         previousLocation = Conversions.StringToLatLon(_initialLatitudeLongitude);
     }
 #endif
