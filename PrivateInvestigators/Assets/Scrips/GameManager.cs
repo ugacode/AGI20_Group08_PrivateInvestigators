@@ -13,13 +13,30 @@ public class GameManager : MonoBehaviour
 {
 
     public GameObject panelMenu;
+    public GameObject panelAccuse;
+    public GameObject panelFoundClues;
     public GameObject locationGame;
-    public enum State{ MENU, INIT, CITYRAT}
+    public enum State{ MENU, INIT, CITYRAT, ACCUSE, FOUND_CLUES}
     State _state;
 
+
+    /********* BUTTONS:***************/
     public void InvestigateClicked(){
       SwitchState(State.CITYRAT);
     }
+
+    public void AccuseClicked(){
+      SwitchState(State.ACCUSE);
+    }
+
+    public void FoundCluesClicked(){
+      SwitchState(State.FOUND_CLUES);
+    }
+
+    public void BackToStartClicked(){
+      SwitchState(State.MENU);
+    }
+    /**********************************/
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +47,7 @@ public class GameManager : MonoBehaviour
     public void SwitchState(State newState){
       EndState();
       BeginState(newState);
+      _state = newState;
     }
 
     void BeginState(State newState)
@@ -43,6 +61,12 @@ public class GameManager : MonoBehaviour
           break;
         case State.CITYRAT:
           locationGame.SetActive(true);
+          break;
+        case State.ACCUSE:
+          panelAccuse.SetActive(true);
+          break;
+        case State.FOUND_CLUES:
+          panelFoundClues.SetActive(true);
           break;
       }
     }
@@ -64,6 +88,12 @@ public class GameManager : MonoBehaviour
           break;
         case State.CITYRAT:
           locationGame.SetActive(false);
+          break;
+        case State.ACCUSE:
+          panelAccuse.SetActive(false);
+          break;
+        case State.FOUND_CLUES:
+          panelFoundClues.SetActive(false);
           break;
       }
     }
