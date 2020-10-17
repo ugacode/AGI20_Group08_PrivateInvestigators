@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         return;
       }
       for(int i = 0; i < unlockedClues.Length; i++) {
-        unlockedCluesText.text = unlockedCluesText.text + clues[i] + "\n\n";
+        unlockedCluesText.text = unlockedCluesText.text + clues[unlockedClues[i]] + "\n\n";
       }
     }
 
