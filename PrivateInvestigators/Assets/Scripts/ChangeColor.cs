@@ -6,6 +6,8 @@ public class ChangeColor : MonoBehaviour
 {
 
     public float timerCountDown = 3.0f;
+    public int itemHP = 3;
+    
 
     public ARTapToSpawn.toolList requiredTool = ARTapToSpawn.toolList.glove;
     private bool isUncovered = false;
@@ -15,6 +17,7 @@ public class ChangeColor : MonoBehaviour
     void Start()
     {
         this.GetComponent<SpriteRenderer>().enabled = false;
+        
     }
 
     // Update is called once per frame
@@ -28,9 +31,13 @@ public class ChangeColor : MonoBehaviour
         return requiredTool;
     }
 
-    public void changeColor(ARTapToSpawn.toolList p_currentTool)
+    public void onCollision(ARTapToSpawn.toolList p_currentTool)
     {
-        
+        if (isUncovered)
+            return;
+
+        if (itemHP == 0)
+            return;
         if (p_currentTool == requiredTool)
         {
             timerCountDown -= Time.deltaTime;
@@ -39,10 +46,23 @@ public class ChangeColor : MonoBehaviour
                 this.GetComponent<SpriteRenderer>().enabled = true;
                 //this.GetComponent<SpriteRenderer>().material.color = Color.green;
                 timerCountDown = 0;
-                GameObject.Find("AR Session Origin").GetComponent<ARTapToSpawn>().ActivatePopUp();
+                GameObject.Find("AR Session Origin").GetComponent<ARTapToSpawn>().ActivatePopUp(true);
+                isUncovered = true;
             }
 
 
+        }
+        else
+        {
+            timerCountDown -= Time.deltaTime;
+            if (timerCountDown < 0)
+            {
+                isUncovered = true;
+                itemHP--;
+                if (itemHP == 0)
+                    GameObject.Find("AR Session Origin").GetComponent<ARTapToSpawn>().ActivatePopUp(false);
+            
+            }
         }
 
    

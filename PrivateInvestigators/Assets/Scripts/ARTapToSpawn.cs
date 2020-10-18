@@ -20,8 +20,6 @@ public class ARTapToSpawn : MonoBehaviour
     {
         glove,
         hammer,
-
-
     }
 
     public toolList currentTool =  toolList.glove;
@@ -32,6 +30,8 @@ public class ARTapToSpawn : MonoBehaviour
     private bool isLocked = false;
     public GameObject particles;
     public GameObject popUP;
+    public List<string> clueList;
+    private List<string> foundClues = new List<string>();
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
@@ -149,10 +149,10 @@ public class ARTapToSpawn : MonoBehaviour
         if (Physics.Raycast(ray, out hitObject,25.0f))
         {
             if (hitObject.transform.tag == "Selectable")
-            {
-                hitObject.transform.GetComponent<ChangeColor>().changeColor(currentTool);
-                particles.SetActive(true);
-                particles.transform.position = hitObject.point;
+            {         
+                hitObject.transform.GetComponent<ChangeColor>().onCollision(currentTool);
+                //particles.SetActive(true);
+                //particles.transform.position = hitObject.point;
             }
         }
         else
@@ -164,10 +164,51 @@ public class ARTapToSpawn : MonoBehaviour
 
     }
 
-    public void ActivatePopUp()
+    public void ActivatePopUp(bool isFound)
     {
         popUP.SetActive(true);
+        if (isFound)
+        {
+            if (foundClues.Count >= clueList.Count)
+            {
+               
+                popUP.GetComponentInChildren<UnityEngine.UI.Text>().text = "No more clues";
+
+            }
+            else
+            {
+            
+                popUP.GetComponentInChildren<UnityEngine.UI.Text>().text = GetText();
+
+            }
+        }
+        else
+        {
+          
+            popUP.GetComponentInChildren<UnityEngine.UI.Text>().text = "Clue Damaged";
+        }
+
+
+       
     }
+
+    private string GetText()
+    {
+        if (foundClues.Count >= clueList.Count)
+            return "No clues";
+        //Gets a random clue and returns it if it was not previousl
+        int randomClue = Random.Range(0, clueList.Count );
+        foreach (string clue in foundClues)
+        {
+            if (clue == clueList[randomClue])
+            {
+                return GetText();
+            }
+        }
+        foundClues.Add(clueList[randomClue]);
+        return clueList[randomClue];
+    }
+
 
 
     // Update is called once per frame
@@ -182,11 +223,10 @@ public class ARTapToSpawn : MonoBehaviour
         }
         else
         {
+
+
             CheckObjectCollisions();
         }
-       
-
-
 
     }
 }
