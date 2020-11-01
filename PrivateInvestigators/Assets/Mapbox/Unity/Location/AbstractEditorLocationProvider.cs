@@ -12,12 +12,12 @@
 		bool _autoFireEvent;
 
 		[SerializeField]
-		float _updateInterval;
+		protected float _updateInterval;
 
 		[SerializeField]
 		bool _sendEvent;
 
-		WaitForSeconds _wait = new WaitForSeconds(0);
+		protected WaitForSeconds _wait = new WaitForSeconds(0);
 
 #if UNITY_EDITOR
 		protected virtual void Awake()
@@ -27,7 +27,7 @@
 		}
 #endif
 
-		IEnumerator QueryLocation()
+		protected IEnumerator QueryLocation()
 		{
 			// HACK: Let others register before we send our first event. 
 			// Often this happens in Start.
