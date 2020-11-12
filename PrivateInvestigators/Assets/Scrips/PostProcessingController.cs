@@ -27,7 +27,7 @@ public class PostProcessingController : MonoBehaviour
             bloomLayer.intensity.value += 0.05f;
         } else
         {
-            Debug.Log(bloomLayer.intensity.value);
+            //Debug.Log(bloomLayer.intensity.value);
             fixedCounter = 1;
         }
         
