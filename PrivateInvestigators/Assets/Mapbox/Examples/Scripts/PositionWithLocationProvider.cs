@@ -80,7 +80,7 @@ namespace Mapbox.Examples
 				_targetPosition = _map.GeoToWorldPosition(location.LatitudeLongitude);
 				if (player != null)
 				{
-					player.PlayerMoved(_targetPosition);
+					player.PlayerMoved(location.LatitudeLongitude);
 				}
 			}
 		}

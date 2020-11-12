@@ -6,7 +6,12 @@ using UnityEngine.Rendering.PostProcessing;
 public class PostProcessingController : MonoBehaviour
 {
     public PostProcessVolume postProcVol;
+    
+    public CityRatPlayer player;
+
     private int fixedCounter;
+    private float lastPlayerSpeed = 0.0f;
+    private float targetDof = 30.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +36,28 @@ public class PostProcessingController : MonoBehaviour
             fixedCounter = 1;
         }
         
+        if (player && player.speed != lastPlayerSpeed)
+        {
+            
+            var playerSpeed = player.speed;
+            if (playerSpeed > 1.55f)
+            {
+                targetDof = 30.0f - playerSpeed * 7.0f;
+            }
+            else
+            {
+               targetDof = 30.0f;
+
+            }
+            lastPlayerSpeed = playerSpeed;
+        }
+    }
+
+    void Update()
+    {
+        DepthOfField dof = null;
+        postProcVol.profile.TryGetSettings(out dof);
+        dof.focusDistance.value = dof.focusDistance.value * (1-(Time.deltaTime/4)) + targetDof * (Time.deltaTime/4);
     }
 }
 

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 5992234}
   m_Layer: 5
   m_Name: PlayerSpeed
-  m_TagString: ClueCollected
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,7 +422,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 4
+  m_Intensity: 3.5
   m_Range: 19
   m_SpotAngle: 60
   m_InnerSpotAngle: 1
@@ -500,7 +500,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.15
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -800,7 +800,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.325
+  m_Intensity: 0.35
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1388,6 +1388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   postProcVol: {fileID: 1471792550}
+  player: {fileID: 1065619646635867}
 --- !u!1 &1784865084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,7 +2998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useDeviceOrientation: 0
   _subtractUserHeading: 0
-  _rotationFollowFactor: 1.5
+  _rotationFollowFactor: 1
   _rotateZ: 0
   _useNegativeAngle: 0
   _useTransformLocationProvider: 0

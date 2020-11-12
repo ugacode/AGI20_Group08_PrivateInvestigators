@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Unity.Map;
+using Mapbox.Unity.Utilities;
 using UnityEngine;
 
 public class CityRatPlayer : MonoBehaviour
@@ -12,7 +13,7 @@ public class CityRatPlayer : MonoBehaviour
     public float speed;
 
     private DateTime _lastSpeedUpdate;
-    private List<Vector3> _playerLocations = new List<Vector3>();
+    private List<Mapbox.Utils.Vector2d> _playerLocations = new List<Mapbox.Utils.Vector2d>();
 
     private object _lockObj = new object();
 
@@ -45,31 +46,32 @@ public class CityRatPlayer : MonoBehaviour
         var nowTime = DateTime.UtcNow;
         var timeDiff = nowTime - _lastSpeedUpdate;
         
-        if (timeDiff.TotalSeconds > 3)
+        if (timeDiff.TotalSeconds > 1)
         {
             lock(_lockObj)
             {
                 nowTime = DateTime.UtcNow;
                 timeDiff = nowTime - _lastSpeedUpdate;
 
-                speed = 0.0f;
-                var distance = 0.0f;
-
-                for (int i = 1; i < _playerLocations.Count; ++i)
+                if (_playerLocations.Count > 1)
                 {
-                    var loc1 = _playerLocations[i-1];
-                    var loc2 = _playerLocations[i];
-                    distance += Math.Abs(loc2.x - loc1.x) + Math.Abs(loc2.y - loc1.y);
+                    double distance = 0.0;
+                    for (int i = 1; i < _playerLocations.Count; ++i)
+                    {
+                        var loc1 = Conversions.LatLonToMeters(_playerLocations[i-1]);
+                        var loc2 = Conversions.LatLonToMeters(_playerLocations[i]);
+                        distance += Math.Abs(loc2.x - loc1.x) + Math.Abs(loc2.y - loc1.y);
+                    }
+                    speed = (float)distance / (float)timeDiff.TotalSeconds;
+                    
+                    _lastSpeedUpdate = nowTime;
+                    _playerLocations.Clear();
                 }
-                speed = distance / (float)timeDiff.TotalSeconds;
-                
-                _lastSpeedUpdate = nowTime;
-                _playerLocations.Clear();
             }    
         }
     }
 
-    public void PlayerMoved(Vector3 newPosition)
+    public void PlayerMoved(Mapbox.Utils.Vector2d newPosition)
     {
         lock(_lockObj)
         {
