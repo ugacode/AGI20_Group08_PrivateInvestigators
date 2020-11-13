@@ -10,6 +10,9 @@ namespace Mapbox.Examples
 		[SerializeField]
 		private AbstractMap _map;
 
+		[SerializeField]
+		public CityRatPlayer player;
+
 		/// <summary>
 		/// The rate at which the transform's position tries catch up to the provided location.
 		/// </summary>
@@ -75,6 +78,10 @@ namespace Mapbox.Examples
 			if (_isInitialized && location.IsLocationUpdated)
 			{
 				_targetPosition = _map.GeoToWorldPosition(location.LatitudeLongitude);
+				if (player != null)
+				{
+					player.PlayerMoved(location.LatitudeLongitude);
+				}
 			}
 		}
 
