@@ -634,6 +634,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e2cf68ff4b1ffda45a77f7307dd789b9, type: 2}
+    - target: {fileID: 9595392, guid: adad89669382b0743a2c2f162c9601b0, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adad89669382b0743a2c2f162c9601b0, type: 3}
 --- !u!4 &490966289 stripped
@@ -1841,6 +1845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 114105500614454872}
   speed: 0
+  walking: 0
+  running: 0
 --- !u!114 &1065619646635868
 MonoBehaviour:
   m_ObjectHideFlags: 0
