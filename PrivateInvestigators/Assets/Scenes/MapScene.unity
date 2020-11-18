@@ -1393,6 +1393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   postProcVol: {fileID: 1471792550}
   player: {fileID: 1065619646635867}
+  Blur: 1
 --- !u!1 &1784865084
 GameObject:
   m_ObjectHideFlags: 0

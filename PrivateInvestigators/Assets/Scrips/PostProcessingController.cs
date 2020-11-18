@@ -9,6 +9,8 @@ public class PostProcessingController : MonoBehaviour
     
     public CityRatPlayer player;
 
+    public bool Blur;
+
     private int fixedCounter;
     private float lastPlayerSpeed = 0.0f;
     private float targetDof = 30.0f;
@@ -55,9 +57,12 @@ public class PostProcessingController : MonoBehaviour
 
     void Update()
     {
-        DepthOfField dof = null;
-        postProcVol.profile.TryGetSettings(out dof);
-        dof.focusDistance.value = dof.focusDistance.value * (1-(Time.deltaTime/4)) + targetDof * (Time.deltaTime/4);
+        if (Blur)
+        {
+            DepthOfField dof = null;
+            postProcVol.profile.TryGetSettings(out dof);
+            dof.focusDistance.value = dof.focusDistance.value * (1-(Time.deltaTime/4)) + targetDof * (Time.deltaTime/4);
+        }
     }
 }
 
