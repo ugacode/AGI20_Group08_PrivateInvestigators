@@ -13,7 +13,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0.5
   - m_ConditionMode: 4
     m_ConditionEvent: speed
-    m_EventTreshold: 30
+    m_EventTreshold: 7.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7264858238952221189}
   m_Solo: 0
@@ -38,7 +38,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: speed
-    m_EventTreshold: 30
+    m_EventTreshold: 7.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1237752931075663713}
   m_Solo: 0
@@ -94,7 +94,7 @@ AnimatorStateTransition:
     m_EventTreshold: 0.5
   - m_ConditionMode: 4
     m_ConditionEvent: speed
-    m_EventTreshold: 30
+    m_EventTreshold: 7.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7264858238952221189}
   m_Solo: 0
@@ -119,7 +119,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: speed
-    m_EventTreshold: 30
+    m_EventTreshold: 7.5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1237752931075663713}
   m_Solo: 0
@@ -176,43 +176,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Turn
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Crouch
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: OnGround
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 1
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Jump
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: JumpLeg
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

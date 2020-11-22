@@ -42,9 +42,9 @@ public class PostProcessingController : MonoBehaviour
         {
             
             var playerSpeed = player.speed;
-            if (playerSpeed > 1.55f)
+            if (playerSpeed > 6.8f)
             {
-                targetDof = 30.0f - playerSpeed * 7.0f;
+                targetDof = 30.0f - playerSpeed * 3.15f;
             }
             else
             {
