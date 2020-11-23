@@ -57,7 +57,7 @@
 
 		private IEnumerator ActivateGameObjects()
 		{
-			yield return new WaitForSeconds(4.0f);
+			yield return new WaitForSeconds(5.0f);
 			int count = _spawnedObjects.Count;
 			for (int i = 0; i < count; i++)
 			{

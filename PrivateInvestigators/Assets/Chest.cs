@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class Chest : MonoBehaviour
 {
     public GameObject clueObject;
+    public CityRatPlayer player;
 
     private bool collected = false;
-    // Start is called before the first frame update
+    
     void Awake() {
      transform.Rotate(0.0f, UnityEngine.Random.Range(0.0f, 360.0f), 0.0f);
      clueObject.transform.Rotate(0.0f, UnityEngine.Random.Range(0.0f, 360.0f), 0.0f);
+     player = GameObject.FindGameObjectWithTag("Player").GetComponent<CityRatPlayer>();
     }
 
     // Update is called once per frame
@@ -26,8 +28,7 @@ public class Chest : MonoBehaviour
         if (collected == false)
         {
             collected = true;
-
-            Debug.Log("Triggered!");
+            player.ClueCollected();
 
             var clueText = GameObject.FindGameObjectWithTag("ClueCollected");
             var text = clueText.GetComponents<Text>().First();

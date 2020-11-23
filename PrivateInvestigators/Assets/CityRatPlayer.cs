@@ -12,6 +12,8 @@ public class CityRatPlayer : MonoBehaviour
 	AbstractMap _map;
 
     public float speed;
+
+    public int collectedClues;
     public bool walking = false;
     public bool running = false;
 
@@ -25,8 +27,9 @@ public class CityRatPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        collectedClues = 0;
         speed = 0.0f;
-        _lastSpeedUpdate = DateTime.UtcNow;
+        _lastSpeedUpdate = DateTime.UtcNow.AddSeconds(-2);
         _anim = GetComponentsInChildren<Animator>().First();
     }
 
@@ -90,5 +93,10 @@ public class CityRatPlayer : MonoBehaviour
         {
             _playerLocations.Add(newPosition);
         }
+    }
+
+    public void ClueCollected()
+    {
+        ++collectedClues;
     }
 }

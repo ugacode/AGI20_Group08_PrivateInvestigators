@@ -7,6 +7,7 @@ public class PlayerHUD : MonoBehaviour
 {
     public CityRatPlayer player;
     public Text speedText;
+    public Text cluesText;
 
     // Update is called once per frame
     void Update()
@@ -14,6 +15,7 @@ public class PlayerHUD : MonoBehaviour
         if (player)
         {
             speedText.text = $"Player speed - {player.speed:0.#} m\\s";
+            cluesText.text = $"Clues - {player.collectedClues}/10";
         }
     }
 }
