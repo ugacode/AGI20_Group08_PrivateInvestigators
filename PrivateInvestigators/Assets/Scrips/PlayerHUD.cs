@@ -10,9 +10,12 @@ public class PlayerHUD : MonoBehaviour
     public Text cluesText;
 
     private float minFov = 50.0f;
-    private float maxFov = 90.0f;
-    private float zoomSensitivityMouse = 5.0f;
-    private float zoomSensitivityTouch = 0.0075f;
+    private float maxFov = 82.0f;
+    private float targetFov;
+    private float zoomDamping = 9f;
+    private float zoomVelocity = 0f;
+    private float zoomSensitivityMouse = 10.0f;
+    private float zoomSensitivityTouch = 0.05f;
     private Camera cam;
     private bool wasZoomingLastFrame; // Touch mode only
     private Vector2[] lastZoomPositions; // Touch mode only
@@ -20,6 +23,7 @@ public class PlayerHUD : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        targetFov = cam.fieldOfView;
     }
 
     // Update is called once per frame
@@ -38,6 +42,12 @@ public class PlayerHUD : MonoBehaviour
             {
                 float scroll = Input.GetAxis("Mouse ScrollWheel");
                 ZoomCamera(scroll, zoomSensitivityMouse);
+            }
+
+            if (targetFov != cam.fieldOfView)
+            {
+                //cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, targetFov, Time.deltaTime * zoomDamping);
+                cam.fieldOfView = Mathf.SmoothDamp(cam.fieldOfView, targetFov, ref zoomVelocity, Time.deltaTime * zoomDamping);
             }
         }
     }
@@ -71,6 +81,7 @@ public class PlayerHUD : MonoBehaviour
             return;
         }
     
-        cam.fieldOfView = Mathf.Clamp(cam.fieldOfView - (offset * speed), minFov, maxFov);
+        targetFov = Mathf.Clamp(cam.fieldOfView - (offset * speed), minFov, maxFov);
+        zoomVelocity = 0f;
     }
 }
