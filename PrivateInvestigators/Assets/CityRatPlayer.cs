@@ -14,8 +14,8 @@ public class CityRatPlayer : MonoBehaviour
     public float speed;
 
     public int collectedClues;
-    public bool walking = false;
-    public bool running = false;
+    public int state = 0;
+    public int nextState = 0;
 
     private DateTime _lastSpeedUpdate;
     private List<Mapbox.Utils.Vector2d> _playerLocations = new List<Mapbox.Utils.Vector2d>();
@@ -48,7 +48,11 @@ public class CityRatPlayer : MonoBehaviour
 	    //     var latlongDelta = _map.WorldToGeoPosition(pos);
 	    //     Debug.Log("Latitude: " + latlongDelta.x + " Longitude: " + latlongDelta.y);
         // }
-        _anim.SetFloat("speed", speed);
+        if (nextState != state)
+        {
+            state = nextState;
+            _anim.SetInteger("state", state);
+        }
     }
 
     void FixedUpdate()
@@ -82,6 +86,21 @@ public class CityRatPlayer : MonoBehaviour
                 else
                 {
                     speed = speed / 4.0f;
+                }
+                if (speed > 0.5)
+                {
+                    if (speed > 7.5)
+                    {
+                        nextState = 2;
+                    }
+                    else
+                    {
+                        nextState = 1;
+                    }
+                }
+                else
+                {
+                    nextState = 0;
                 }
             }    
         }
