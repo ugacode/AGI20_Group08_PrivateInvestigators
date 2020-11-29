@@ -15,7 +15,7 @@ public class PlayerHUD : MonoBehaviour
     private float zoomDamping = 9f;
     private float zoomVelocity = 0f;
     private float zoomSensitivityMouse = 10.0f;
-    private float zoomSensitivityTouch = 0.05f;
+    private float zoomSensitivityTouch = 0.06f;
     private Camera cam;
     private bool wasZoomingLastFrame; // Touch mode only
     private Vector2[] lastZoomPositions; // Touch mode only
