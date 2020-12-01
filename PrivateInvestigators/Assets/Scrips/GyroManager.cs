@@ -1,5 +1,6 @@
-// ﻿using System.Collections;
-// using System.Collections.Generic;
+// Author: Karin Lagrelius nov 2020
+
+
 using UnityEngine;
 
   public class GyroManager : MonoBehaviour
@@ -23,39 +24,37 @@ using UnityEngine;
     #endregion
 
     [Header("Logic")]
+    private bool gyroInUse;
     private Gyroscope gyro;
     private Quaternion rotation;
-    private bool gyroActive;
 
     public void EnableGyro(){
-      if(gyroActive){ return; }
+      if(gyroInUse){ return; }
 
       if(SystemInfo.supportsGyroscope){
         Debug.Log("system supports gyro");
         gyro = Input.gyro;
         gyro.enabled = true;
-        gyroActive = gyro.enabled;
-       } else{
-         Debug.Log("system doesn't support gyro");
+        gyroInUse = true;
+       } else {
+         Debug.Log("System doesn't support gyro :(");
        }
-    }
-
-    // Update is called once per frame
-    private void Update() {
-      if(gyroActive){
-        rotation = gyro.attitude;// TODO Input.gyro.attitude;
-      }
     }
 
     public Quaternion GetRotation(){
       return rotation;
     }
 
+    // Update is called once per frame
+    private void Update() {
+      if(gyroInUse){ rotation = gyro.attitude; }
+    }
+
     // Start is called before the first frame update
-    // void Start()
-    // {
-    //
-    // }
+    void Start()
+    {
+
+    }
   }
 
 
