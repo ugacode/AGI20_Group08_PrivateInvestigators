@@ -1,5 +1,5 @@
 // Author: Karin Lagrelius nov 2020
-// using RDG; 
+using RDG;
 using System;
 //using System.Collections.Generic;
 
@@ -14,6 +14,7 @@ public class ObeyGyro : MonoBehaviour
      public AudioSource audioSource;
      public AudioClip clip;
      private int prevJump = -1;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -31,11 +32,18 @@ public class ObeyGyro : MonoBehaviour
     //  Quaternion quat =  GyroManager.Instance.GetRotation();
       Vector3 rot = GyroManager.Instance.GetRotation().eulerAngles;
 
+      // int jump = (int)Math.Floor((rot.z - 15/2)/15)*15;
       int jump = (int)Math.Floor(rot.z/15)*15;
-      transform.localRotation = Quaternion.Euler(0, 0, (float)jump) * baseRotation;
+
       if(prevJump != -1 && prevJump != jump){
+        transform.localRotation = Quaternion.Euler(0, 0, 180f-(float)jump) * baseRotation;
         audioSource.PlayOneShot(clip, 0.5f);
-        Handheld.Vibrate();
+        // Handheld.Vibrate();
+        //   Vibration.Vibrate(10000, 100, false);
+        Vibration.Vibrate(1000);
+        // Handheld.Vibrate();
+        //   if (Application.isEditor) {Handheld.Vibrate();}
+        // Vibration.Cancel();
         Debug.Log("jump!");
       }
       prevJump = jump;
@@ -52,7 +60,7 @@ private static readonly AndroidJavaObject Vibrator =
     .GetStatic<AndroidJavaObject>("currentActivity")// Get the Current Activity from the Unity Player.
     .Call<AndroidJavaObject>("getSystemService", "vibrator");// Then get the Vibration Service from the Current Activity.
 
-static KyVibrator()
+static void KyVibrator()
 {
     // Trick Unity into giving the App vibration permission when it builds.
     // This check will always be false, but the compiler doesn't know that.
@@ -64,5 +72,30 @@ public static void Vibrate(long milliseconds)
     Vibrator.Call("vibrate", milliseconds);
 }
 
+
+
+
+// NYTT;
+public class KyVibrator : MonoBehaviour{
+
+     private static readonly AndroidJavaObject Vibrator =
+         new AndroidJavaClass("com.unity3d.player.UnityPlayer")// Get the Unity Player.
+         .GetStatic<AndroidJavaObject>("currentActivity")// Get the Current Activity from the Unity Player.
+         .Call<AndroidJavaObject>("getSystemService", "vibrator");// Then get the Vibration Service from the Current Activity.
+
+
+         static KyVibrator()
+         {
+             // Trick Unity into giving the App vibration permission when it builds.
+             // This check will always be false, but the compiler doesn't know that.
+             if (Application.isEditor) Handheld.Vibrate();
+         }
+
+         public static void Vibrate(long milliseconds)
+         {
+             Vibrator.Call("vibrate", milliseconds);
+         }
+}
+// SLUT NYTT
 
 */
