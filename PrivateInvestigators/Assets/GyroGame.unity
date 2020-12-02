@@ -405,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseRotation: {x: 0, y: 0, z: 1, w: 0}
   audioSource: {fileID: 0}
-  clip: {fileID: 8300000, guid: f9f1da21784cf4626bc11bbb0767ed7f, type: 3}
+  clip: {fileID: 8300000, guid: 7a7efa87db5674cb9a9615bb17ee63c5, type: 3}
 --- !u!1 &1564545282
 GameObject:
   m_ObjectHideFlags: 0

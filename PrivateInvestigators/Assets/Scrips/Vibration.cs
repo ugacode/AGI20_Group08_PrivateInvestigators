@@ -1,7 +1,9 @@
+// Author "ruzrobert" on github
+// Source: https://gist.github.com/ruzrobert/d98220a3b7f71ccc90403e041967c46b
+
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-// Dont forget to add "using RDG;" to the top of your script!
 namespace RDG
 {
     /// <summary>
