@@ -12,32 +12,63 @@ public class ObeyGyro : MonoBehaviour
 
      public AudioSource audioSource;
      public AudioClip clip;
-     private int prevJump = -1;
+     private const int degJump = 15;
+     private int prevJump = degJump/3;
+     public GameObject ClueMessage;
+     public float startingPitch = 0.3f;
+     private System.DateTime start;
 
     // Start is called before the first frame update
     private void Start()
     {
       audioSource = gameObject.AddComponent<AudioSource>();
+      audioSource.pitch = startingPitch;
       GyroManager.Instance.EnableGyro();
       baseRotation = transform.localRotation;
+
+      // transform.localRotation = Quaternion.Euler(0, 0, 0) * baseRotation;
     }
 
     // Update is called once per frame
     private void Update()
     {
-    //   transform.localRotation = baseRotation * GyroManager.Instance.GetRotation();
+      //   transform.localRotation = baseRotation * GyroManager.Instance.GetRotation();
+      //  Quaternion quat =  GyroManager.Instance.GetRotation();
 
-    //  Quaternion quat =  GyroManager.Instance.GetRotation();
       Vector3 rot = GyroManager.Instance.GetRotation().eulerAngles;
 
       // int jump = (int)Math.Floor((rot.z - 15/2)/15)*15;
-      int jump = (int)Math.Floor(rot.z/15)*15;
+      int jump = (int)Math.Floor((rot.z)/degJump)*degJump;
+      //Debug.Log("jump" + jump + " prevJump" + prevJump + " z-angle:" + rot.z);
 
-      if(prevJump != -1 && prevJump != jump){
+      if(prevJump != degJump/3 && prevJump != jump){
         transform.localRotation = Quaternion.Euler(0, 0, (float)jump) * baseRotation;
+        double winPos = Math.PI/4; // win position is hard coded to be at 225 deg now, can be changed to be dynamic somehow.
+        double sineValue = Math.Sin(((Math.PI / 180) * jump - winPos)/2.0);
+        audioSource.pitch = 1f + (float)Math.Pow(sineValue, 32.0) + (float)Math.Pow(sineValue, 4.0);
+        // Debug.Log("pitch: " + audioSource.pitch);
         audioSource.PlayOneShot(clip, 0.5f);
-        Vibration.Vibrate(15, 80, false);
-        Debug.Log("jump!");
+
+        // To make the vibrations stronger closer to the goal:
+        // double vibe = 20 + 0.5 * ((float)Math.Pow(sineValue, 32.0) + (float)Math.Pow(sineValue, 4.0)) * 235;
+        // Vibration.Vibrate(15, (int)vibe, false);
+
+        // To make the vibrations constant:
+        Vibration.Vibrate(15, 100, false);
+      }
+      if(jump == 225){
+        if(prevJump != 225){
+          start = System.DateTime.Now;
+          //Debug.Log("225 reached: " + System.DateTime.Now);
+        }
+        // int timeDiff = System.DateTime.Now - start;
+        System.TimeSpan timeDiff = System.DateTime.Now - start;
+        //Debug.Log("timeDiff: " + timeDiff);
+
+        if (timeDiff.Seconds >= 3){
+          Debug.Log("You opened the safe! Clue collected.");
+          ClueMessage.SetActive(true);
+        }
       }
       prevJump = jump;
     }
