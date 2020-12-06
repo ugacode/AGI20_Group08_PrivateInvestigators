@@ -38,9 +38,16 @@ public class ARManager: MonoBehaviour
     private GameObject lightTarget;
     public GameObject lightDistanceUI;
 
+    AudioSource aud;
+
     private void Start()
     {
         arOrigin = FindObjectOfType<ARSessionOrigin>();
+
+        aud = GetComponent<AudioSource>();
+        aud.clip = Microphone.Start(null, true, 15, 44100);
+        aud.loop = true;
+        while (!(Microphone.GetPosition(null) > 0)){ }
     }
 
 
@@ -110,6 +117,14 @@ public class ARManager: MonoBehaviour
 
         currentObject = p_object;
         MoveObject();
+    }
+
+    public void DestroyDust()
+    {
+        if(spawmedObject) {
+            ParticleSystem ps = spawmedObject.GetComponent<ParticleSystem>();
+            Destroy(ps);
+        } 
     }
 
 
