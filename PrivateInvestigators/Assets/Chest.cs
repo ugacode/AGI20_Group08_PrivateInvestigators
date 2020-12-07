@@ -30,10 +30,10 @@ public class Chest : MonoBehaviour
             collected = true;
             player.ClueCollected();
 
-            var clueText = GameObject.FindGameObjectWithTag("ClueCollected");
-            var text = clueText.GetComponents<Text>().First();
-            text.color = new Color(text.color.r, text.color.g, text.color.b, 0.9f);
-            StartCoroutine(FadeOut(text, 2.8f));
+            //var clueText = GameObject.FindGameObjectWithTag("ClueCollected");
+            //var text = clueText.GetComponents<Text>().First();
+            //text.color = new Color(text.color.r, text.color.g, text.color.b, 0.9f);
+            //StartCoroutine(FadeOut(text, 2.8f));
 
             var renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
             foreach(var r in renderers)
@@ -91,7 +91,7 @@ public class Chest : MonoBehaviour
 
     private IEnumerator DestroySelf(float duration=10.0f)
     {
-        yield return new WaitForSeconds(5.5f);
+        yield return new WaitForSeconds(duration);
         Destroy(gameObject);
         yield return null;
     }
