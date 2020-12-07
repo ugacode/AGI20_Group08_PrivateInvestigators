@@ -5,6 +5,7 @@ using System.Linq;
 using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CityRatPlayer : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CityRatPlayer : MonoBehaviour
     public int collectedClues;
     public int state = 0;
     public int nextState = 0;
+    public GameObject rootObject;
 
     private DateTime _lastSpeedUpdate;
     private List<Mapbox.Utils.Vector2d> _playerLocations = new List<Mapbox.Utils.Vector2d>();
@@ -31,6 +33,7 @@ public class CityRatPlayer : MonoBehaviour
         speed = 0.0f;
         _lastSpeedUpdate = DateTime.UtcNow.AddSeconds(-2);
         _anim = GetComponentsInChildren<Animator>().First();
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     // Update is called once per frame
@@ -116,6 +119,26 @@ public class CityRatPlayer : MonoBehaviour
 
     public void ClueCollected()
     {
+        StartCoroutine(LoadVaultSceneAsync());
         ++collectedClues;
+    }
+
+    IEnumerator LoadVaultSceneAsync()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("GyroGame", LoadSceneMode.Additive);
+        rootObject.SetActive(false);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        rootObject.SetActive(true);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapScene"));
     }
 }
