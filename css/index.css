@@ -1,0 +1,97 @@
+/* GENERAL */
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.waves-effect.waves-light:hover {
+	background-color: #ffd8a6!important;
+}
+
+/* PARALLAX */
+.parallax-container {
+	height: 75vh;
+	z-index: 1;
+}
+
+.parallax-container .responsive-img {
+	float: left;
+	width: 30vw!important;
+	margin-left: 10vw;
+	margin-top: 10vh;
+}
+
+.parallax > img {
+	width: 100vw;
+}
+
+.parallax-container p {
+	margin-left: 10vw;
+	margin-right: 10vw;
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: 500;
+}
+
+/* SIDENAV */
+.sidenav-trigger {
+	position: fixed;
+	z-index: 5;
+}
+
+.sidenav .user-view img {
+	width: 100%;
+}
+
+.sidenav i {
+	color: #ffab00!important;
+}
+
+.divider {
+	background-color: #ffab00;
+}
+
+.sidenav li:last-child {
+	position: sticky;
+	position: -webkit-sticky;
+	top: 95%;
+	text-align: center;
+}
+
+/* CARDS */
+.card-content a {
+	color: #ffab00;
+}
+
+.card-content > div {
+	height: 100%;
+}
+
+.tab i {
+	color: #ffab00!important;
+}
+
+.tabs .indicator {
+	background-color: #ffab00!important;
+}
+
+.card-content {
+	overflow-y: scroll!important;
+}
+
+.clickable:hover {
+	color: #ffd8a6;
+}
+
+/* MORE RESPONSIVENESS */
+@media only screen and (max-width: 690px) {
+	/* PARALLAX */
+	.parallax-container .responsive-img {
+		float: right;
+		margin-right: 10vw;
+	}
+  }
