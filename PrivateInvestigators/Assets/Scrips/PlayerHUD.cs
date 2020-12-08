@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mapbox.Unity.Map;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ public class PlayerHUD : MonoBehaviour
     public CityRatPlayer player;
     public Text speedText;
     public Text cluesText;
+    public CanvasGroup loadingCanvas;
+    public CanvasGroup playerCanvas;
+    public AbstractMap map;
 
     private float minFov = 50.0f;
     private float maxFov = 82.0f;
@@ -24,6 +28,13 @@ public class PlayerHUD : MonoBehaviour
     {
         cam = Camera.main;
         targetFov = cam.fieldOfView;
+        map.OnInitialized += MapInitialized;
+    }
+
+    void MapInitialized()
+    {
+        StartCoroutine(FadeCanvas(loadingCanvas, 1.0f, 0.0f, 2.5f, 3.5f));
+        StartCoroutine(FadeCanvas(playerCanvas, 0.0f, 1.0f, 2.5f, 7.0f));
     }
 
     // Update is called once per frame
@@ -83,5 +94,35 @@ public class PlayerHUD : MonoBehaviour
     
         targetFov = Mathf.Clamp(cam.fieldOfView - (offset * speed), minFov, maxFov);
         zoomVelocity = 0f;
+    }
+
+    public static IEnumerator FadeCanvas(CanvasGroup canvas, float startAlpha, float endAlpha, float duration, float wait=0.0f)
+    {
+        if (wait > 0.0f)
+        {
+            yield return new WaitForSeconds(wait);
+        }
+
+        var startTime = Time.time;
+        var endTime = Time.time + duration;
+        var elapsedTime = 0f;
+
+        canvas.alpha = startAlpha;
+        while (Time.time <= endTime)
+        {
+            elapsedTime = Time.time - startTime;
+            var percentage = 1/(duration/elapsedTime);
+            if (startAlpha > endAlpha)
+            {
+                canvas.alpha = startAlpha - percentage;
+            }
+            else
+            {
+                canvas.alpha = startAlpha + percentage;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+        canvas.alpha = endAlpha;
     }
 }

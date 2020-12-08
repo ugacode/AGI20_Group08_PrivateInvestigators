@@ -40,7 +40,7 @@
 				instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 				_spawnedObjects.Add(instance);
 			}
-			StartCoroutine(ActivateGameObjects());
+			_map.OnInitialized += ActivateGameObjectsDelayed;
 		}
 
 		private void Update()
@@ -55,9 +55,18 @@
 			}
 		}
 
-		private IEnumerator ActivateGameObjects()
+		private void ActivateGameObjectsDelayed()
 		{
-			yield return new WaitForSeconds(5.0f);
+			StartCoroutine(ActivateGameObjects(4.0f));
+		}
+
+		private IEnumerator ActivateGameObjects(float delay = 0.0f)
+		{
+			if (delay > 0.0f)
+			{
+				yield return new WaitForSeconds(delay);
+			}
+
 			int count = _spawnedObjects.Count;
 			for (int i = 0; i < count; i++)
 			{
