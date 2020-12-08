@@ -3,95 +3,61 @@ body {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
+	font-family: 'Trebuchet MS', sans-serif;
 }
 
 main {
 	flex: 1 0 auto;
+	margin-top: 20vh;
 }
 
 .waves-effect.waves-light:hover {
-	background-color: #ffd8a6!important;
+	background-color: #d50000!important;
+}
+
+@font-face {
+	font-family: "chandler";
+	src: url("../resources/Chandler.ttf");
 }
 
 /* PARALLAX */
 .parallax-container {
-	height: 75vh;
-	z-index: 1;
+	height: 20vh;
 }
 
-.parallax-container .responsive-img {
-	float: left;
-	width: 30vw!important;
-	margin-left: 10vw;
-	margin-top: 10vh;
+.overlay {
+	font-family: "chandler";
+	font-size: 50pt;
+	height: inherit;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
 }
 
-.parallax > img {
-	width: 100vw;
+/* NAVBAR */
+nav.nav-center ul {
+    text-align: center;
+}
+nav.nav-center ul li {
+    display: inline;
+	float: none;
 }
 
-.parallax-container p {
-	margin-left: 10vw;
-	margin-right: 10vw;
-	font-family: 'Courier New', Courier, monospace;
-	font-weight: 500;
+nav.nav-center ul li a {
+	display: inline-block;
+	font-size: large;
 }
 
-/* SIDENAV */
-.sidenav-trigger {
-	position: fixed;
-	z-index: 5;
+.active-page {
+	border-bottom: solid 3px white;
 }
 
-.sidenav .user-view img {
-	width: 100%;
+.active-page-side {
+	border-left: solid 3px white;
 }
 
-.sidenav i {
-	color: #ffab00!important;
+/* FOOTER */
+.page-footer .container li {
+	font-size: large;
 }
-
-.divider {
-	background-color: #ffab00;
-}
-
-.sidenav li:last-child {
-	position: sticky;
-	position: -webkit-sticky;
-	top: 95%;
-	text-align: center;
-}
-
-/* CARDS */
-.card-content a {
-	color: #ffab00;
-}
-
-.card-content > div {
-	height: 100%;
-}
-
-.tab i {
-	color: #ffab00!important;
-}
-
-.tabs .indicator {
-	background-color: #ffab00!important;
-}
-
-.card-content {
-	overflow-y: scroll!important;
-}
-
-.clickable:hover {
-	color: #ffd8a6;
-}
-
-/* MORE RESPONSIVENESS */
-@media only screen and (max-width: 690px) {
-	/* PARALLAX */
-	.parallax-container .responsive-img {
-		float: right;
-		margin-right: 10vw;
-	}
-  }
