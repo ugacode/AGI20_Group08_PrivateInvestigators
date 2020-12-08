@@ -342,7 +342,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 36
+  field of view: 52
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -486,6 +486,7 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: 7a7efa87db5674cb9a9615bb17ee63c5, type: 3}
   ClueMessage: {fileID: 1808722302}
   startingPitch: 4
+  solved: 0
 --- !u!1 &1564545282
 GameObject:
   m_ObjectHideFlags: 0
