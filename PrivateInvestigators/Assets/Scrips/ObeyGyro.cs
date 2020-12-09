@@ -14,7 +14,7 @@ public class ObeyGyro : MonoBehaviour
 
      public AudioSource audioSource;
      public AudioClip clip;
-     private const int degJump = 15;
+     private const int degJump = 18;
      private int prevJump = degJump/3;
      public GameObject ClueMessage;
      public float startingPitch = 0.3f;
