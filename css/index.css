@@ -27,7 +27,7 @@ main {
 
 .overlay {
 	font-family: "chandler";
-	font-size: 50pt;
+	font-size: 7vw;
 	height: inherit;
 	display: flex;
 	justify-content: center;
