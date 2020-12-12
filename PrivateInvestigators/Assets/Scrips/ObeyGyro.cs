@@ -14,13 +14,14 @@ public class ObeyGyro : MonoBehaviour
 
      public AudioSource audioSource;
      public AudioClip clip;
-     private const int degJump = 15;
+     private const int degJump = 18;
      private int prevJump = degJump/3;
      public GameObject ClueMessage;
      public float startingPitch = 0.3f;
      public bool solved;
      private bool unloading;
      private System.DateTime start;
+     private int winPos;
 
     // Start is called before the first frame update
     private void Start()
@@ -31,6 +32,9 @@ public class ObeyGyro : MonoBehaviour
       audioSource.pitch = startingPitch;
       GyroManager.Instance.EnableGyro();
       baseRotation = transform.localRotation;
+      var rand = new System.Random();
+      winPos = rand.Next((int)(360/degJump)) * degJump; // because 360/15 = 24
+      // Debug.Log("Winpos deg : " + winPos + " WinPos radians: " + (Math.PI/180)*winPos);
 
       // transform.localRotation = Quaternion.Euler(0, 0, 0) * baseRotation;
     }
@@ -50,8 +54,10 @@ public class ObeyGyro : MonoBehaviour
 
         if(prevJump != degJump/3 && prevJump != jump){
           transform.localRotation = Quaternion.Euler(0, 0, (float)jump) * baseRotation;
-          double winPos = Math.PI/4; // win position is hard coded to be at 225 deg now, can be changed to be dynamic somehow.
-          double sineValue = Math.Sin(((Math.PI / 180) * jump - winPos)/2.0);
+          //double winPos = (180/Math.PI) * (solution*15); // the random
+          // double winPos = Math.PI/4; // win position is hard coded to be at 225 deg now, can be changed to be dynamic somehow.
+          double sineValue = Math.Sin(((Math.PI / 180) * jump - (Math.PI +(Math.PI/180)*(double)winPos))/2.0);
+          Debug.Log("sine: " + sineValue);
           audioSource.pitch = 1f + (float)Math.Pow(sineValue, 32.0) + (float)Math.Pow(sineValue, 4.0);
           // Debug.Log("pitch: " + audioSource.pitch);
           audioSource.PlayOneShot(clip, 0.5f);
@@ -63,13 +69,16 @@ public class ObeyGyro : MonoBehaviour
           // To make the vibrations constant:
           // Vibration.Vibrate(15, 100, false);
         }
-        if(jump == 225){
-          if(prevJump != 225){
+        // if(jump == 225){
+        //   if(prevJump != 225){
+        if(jump == winPos){
+          if(prevJump != winPos){
+            //Debug.Log("jump: " + jump);
             start = System.DateTime.Now;
-            Vibration.Vibrate(15, 100, false);
-            //Debug.Log("225 reached: " + System.DateTime.Now);
+            Vibration.Vibrate(5, 255, false);
+            //Debug.Log("winPos reached: " + System.DateTime.Now);
           }
-          
+
           // int timeDiff = System.DateTime.Now - start;
           System.TimeSpan timeDiff = System.DateTime.Now - start;
           //Debug.Log("timeDiff: " + timeDiff);
