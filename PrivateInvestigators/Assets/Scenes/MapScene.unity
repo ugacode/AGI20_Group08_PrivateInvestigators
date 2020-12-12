@@ -3271,8 +3271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapManager: {fileID: 114105500614454872}
-  _deviceLocationProviderUnity: {fileID: 689829789}
-  _deviceLocationProviderAndroid: {fileID: 0}
+  _deviceLocationProviderUnity: {fileID: 114811609693945504}
+  _deviceLocationProviderAndroid: {fileID: 114352101365905104}
   _editorLocationProvider: {fileID: 689829789}
   _transformLocationProvider: {fileID: 114011132069490140}
   _dontDestroyOnLoad: 0
