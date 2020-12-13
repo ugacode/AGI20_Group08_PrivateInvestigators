@@ -11,6 +11,9 @@ $(document).ready(function(){
     //Pushpin init
     $('.target').pushpin();
 
+    //Carousel init
+    $('.carousel').carousel();
+
 	//Check to see if the window is top if not then display button
     $(window).scroll(function(){
         if ($(this).scrollTop() > 150) {
