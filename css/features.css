@@ -85,3 +85,22 @@ nav.nav-center ul li a {
 }
 
 /* MAIN CONTENT */
+main img {
+	max-height: 256px;
+	max-width: 256px;
+	padding: 20px;
+}
+
+main p {
+	font-size: x-large;
+	text-align: justify;
+	padding: 20px;
+}
+
+main h1, main h2 {
+	padding: 20px;
+}
+
+.materialbox-caption {
+	font-size: large;
+}
