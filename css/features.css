@@ -86,8 +86,7 @@ nav.nav-center ul li a {
 
 /* MAIN CONTENT */
 main img {
-	max-height: 256px;
-	max-width: 256px;
+	height: 256px!important;
 	padding: 20px;
 }
 
@@ -97,10 +96,18 @@ main p {
 	padding: 20px;
 }
 
-main h1, main h2 {
+main h1 {
 	padding: 20px;
 }
 
-.materialbox-caption {
-	font-size: large;
+main .col:nth-of-type(1) h1 {
+	text-align: right;
+}
+
+.valign-wrapper .col:nth-of-type(2) {
+	margin: 0!important;
+}
+
+.valign-wrapper {
+	flex-wrap: wrap;
 }
