@@ -98,6 +98,7 @@ main p {
 
 main h1 {
 	padding: 20px;
+	margin-top: 0;
 }
 
 main .col:nth-of-type(1) h1 {
@@ -110,4 +111,8 @@ main .col:nth-of-type(1) h1 {
 
 .valign-wrapper {
 	flex-wrap: wrap;
+}
+
+.card-panel {
+	border-radius: 10px;
 }

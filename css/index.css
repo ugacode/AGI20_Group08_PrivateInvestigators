@@ -91,8 +91,11 @@ main img {
 
 main p {
 	font-size: x-large;
-	text-align: justify;
 	padding: 20px;
+}
+
+#desc p {
+	text-align: justify;
 }
 
 main h1, main h2 {
@@ -114,10 +117,6 @@ iframe {
 	left: 0;
 	top: 0;
 	padding-bottom: 40px;
-}
-
-.team:nth-of-type(1) > * {
-	text-align: right;
 }
 
 .valign-wrapper .col:nth-of-type(2) {
