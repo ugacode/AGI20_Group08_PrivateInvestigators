@@ -105,7 +105,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897636378817101620}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1099, y: -0.0414, z: 0.2116}
   m_LocalScale: {x: 0.12280099, y: 0.12280099, z: 0.12280099}
   m_Children:
@@ -118,7 +118,7 @@ Transform:
   - {fileID: 6198273102890000565}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8373556385745383751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -548,6 +548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6198273102890000565}
   - component: {fileID: 5914885800941567047}
+  - component: {fileID: 1966617405371602609}
   m_Layer: 0
   m_Name: fingerprint
   m_TagString: Selectable
@@ -562,13 +563,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6544790054715217774}
-  m_LocalRotation: {x: 0.56137425, y: 0.4299524, z: 0.561374, w: 0.42995244}
-  m_LocalPosition: {x: 0.129, y: 0.156, z: -0.622}
+  m_LocalRotation: {x: 0.24036287, y: -0.66500056, z: -0.24036281, w: 0.66500056}
+  m_LocalPosition: {x: 0.1744, y: 0.156, z: -0.62200004}
   m_LocalScale: {x: 0.042634662, y: 0.042634662, z: 0.042634662}
   m_Children: []
   m_Father: {fileID: 5399640182758870787}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 105.104}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -39.745}
 --- !u!212 &5914885800941567047
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -620,3 +621,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1966617405371602609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6544790054715217774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9021fd731f3a441a7040bb446e7933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerCountDown: 3
+  itemHP: 3

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 [RequireComponent(typeof(ARRaycastManager))]
@@ -39,19 +40,31 @@ public class ARManager : MonoBehaviour
     private GameObject selectedObject = null;
 
 
-    public List<string> clueList;
-    private List<string> foundClues = new List<string>();
+    public List<GameObject> spawnedObjectList = new List<GameObject>();
+
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private bool isUVLightOn = false;
     public GameObject UVLight;
 
+    public Text DistanceTextUI;
     public GameObject placeUI;
     public GameObject interactUI;
     public GameObject moveUI;
 
     public Shader outlineShader;
     public Shader standardShader;
+
+
+    const float pinchTurnRatio = Mathf.PI / 2;
+    const float minTurnAngle = 0;
+    const float pinchRatio = 1;
+
+    // <summary> // The delta of the angle between two touch points // </summary> 
+    private float turnAngleDelta;
+
+    // <summary> // The angle between two touch points // </summary> 
+    private float turnAngle;
 
 
     private void Start()
@@ -78,46 +91,6 @@ public class ARManager : MonoBehaviour
         return false;
     }
 
-    public void ScaleUp()
-    {
-        if (spawmedObject == null)
-            return;
-
-        spawmedObject.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
-
-
-    }
-
-    public void ScaleDown()
-    {
-        if (spawmedObject == null)
-            return;
-
-        spawmedObject.transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
-    }
-
-    public void ChangeToolToGlove()
-    {
-        currentTool = toolList.glove;
-    }
-    public void ChangeToolToHammer()
-    {
-        currentTool = toolList.hammer;
-    }
-
-    private void changeState(arState newState)
-    {
-
-    }
-
-
-    public void SetObject(GameObject p_object)
-    {
-        Destroy(spawmedObject);
-
-        currentObject = p_object;
-        // MoveObject();
-    }
 
 
     private void SetAllPlanesActive(bool value){
@@ -139,30 +112,24 @@ public class ARManager : MonoBehaviour
             if (spawmedObject == null)
             {
                 spawmedObject = Instantiate(currentObject.gameObject, hitPos.position, hitPos.rotation);
-                // spawmedObject.GetComponent<MeshRenderer>().material.color = new Color(1.0f,1.0f,1.0f,0.5f);
+                spawnedObjectList.Add(spawmedObject);
             
             }
             else
             {
                 spawmedObject.transform.position = hitPos.position;
             }
-            spawmedObject.SetActive(true);
+     
 
         }
-        else
-        {
-            if (spawmedObject == null)
-            {
-                spawmedObject.SetActive(false);
-            }
-        }
+
 
 
     }
 
-    public void placeObject()
+    public void Place()
     {
-        //spawmedObject.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+       
 
         if (spawmedObject != null)
         {
@@ -171,6 +138,7 @@ public class ARManager : MonoBehaviour
             SetAllPlanesActive(false);
             placeUI.SetActive(false);
             interactUI.SetActive(true);
+           
         }
         
 
@@ -200,7 +168,7 @@ public class ARManager : MonoBehaviour
 
                         }
                         selectedObject = hitObject.transform.gameObject;
-                        // selectedObject.GetComponent<Renderer>().material.shader = outlineShader;
+                 
                         for (int i = 0; i < spawmedObject.transform.childCount; i++)
                         {
                             
@@ -210,18 +178,6 @@ public class ARManager : MonoBehaviour
                             }
                            
                         }
-
-                        //Renderer[] children;
-                        //children = GetComponentsInChildren<Renderer>();
-                        //foreach (Renderer rend in children)
-                        //{
-                        //    var mats = new Material[rend.materials.Length];
-                        //    for (var j = 0; j < rend.materials.Length; j++)
-                        //    {
-                        //        mats[j].shader = outlineShader;
-                        //    }
-                        //    rend.materials = mats;
-                        //}
 
                         currentState = arState.move;
                         interactUI.SetActive(false);
@@ -286,8 +242,89 @@ public class ARManager : MonoBehaviour
             float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
             float pinchAmount = deltaMagnitudeDiff * 0.002f * Time.deltaTime;
             selectedObject.transform.localScale -= new Vector3(pinchAmount, pinchAmount, pinchAmount);
+
+
+          
+            Quaternion desiredRotation = transform.rotation;
+
+            turnAngle = Angle(touchZero.position, touchOne.position);
+            float prevTurn = Angle(touchZero.position - touchZero.deltaPosition, touchOne.position - touchOne.deltaPosition);
+            turnAngleDelta = Mathf.DeltaAngle(prevTurn, turnAngle);
+
+
+            // ... if it's greater than a minimum threshold, it's a turn! 
+            if (Mathf.Abs(turnAngleDelta) > minTurnAngle)
+            {
+                turnAngleDelta *= pinchTurnRatio;
+            }
+            else
+            {
+                turnAngle = turnAngleDelta = 0;
+            }
+
+            if (Mathf.Abs(turnAngleDelta) > 0)
+            {
+                Vector3 rotationDeg = Vector3.zero;
+                rotationDeg.y = -turnAngleDelta;
+                desiredRotation *= Quaternion.Euler(rotationDeg);
+            }
+
+            selectedObject.transform.Rotate(desiredRotation.x, desiredRotation.y*30, desiredRotation.z, Space.Self);
         }
+
+        //remove
+        //DistanceTextUI.text = Vector3.Distance(selectedObject.transform.position, transform.position).ToString();
+
+
+
     }
+
+
+    public void ItemToSpawn(GameObject newItem) {
+
+        if(newItem== null)
+        {
+            return;
+        }
+        spawmedObject = null;
+        currentObject = newItem;
+        currentState = arState.placeItem;
+        planeManager.enabled = !planeManager.enabled;
+        placeUI.SetActive(true);
+        interactUI.SetActive(false);
+        SetAllPlanesActive(true);
+        isUVLightOn = false;
+        UVLight.SetActive(false);
+
+
+    }
+
+
+    private float Angle(Vector2 pos1, Vector2 pos2)
+    {
+        Vector2 from = pos2 - pos1;
+        Vector2 to = new Vector2(1, 0);
+        float result = Vector2.Angle(from, to);
+        Vector3 cross = Vector3.Cross(from, to);
+
+        if (cross.z > 0)
+        {
+            result = 360f - result;
+        }
+        return result;
+    }
+
+    public void DeleteObject()
+    {
+        moveUI.SetActive(false);
+        interactUI.SetActive(true);
+        currentState = arState.interact;
+        Destroy(selectedObject);
+        selectedObject = null;
+    }
+     
+
+
 
     private bool IsPointerOverUIObject(Vector2 pos)
     {
@@ -305,51 +342,6 @@ public class ARManager : MonoBehaviour
 
     }
 
-
-    public void ActivatePopUp(bool isFound)
-    {
-       // popUP.SetActive(true);
-        if (isFound)
-        {
-            if (foundClues.Count >= clueList.Count)
-            {
-
-              //  popUP.GetComponentInChildren<UnityEngine.UI.Text>().text = "No more clues";
-
-            }
-            else
-            {
-
-             //   popUP.GetComponentInChildren<UnityEngine.UI.Text>().text = GetText();
-
-            }
-        }
-        else
-        {
-
-          //  popUP.GetComponentInChildren<UnityEngine.UI.Text>().text = "Clue Damaged";
-        }
-
-
-
-    }
-
-    private string GetText()
-    {
-        if (foundClues.Count >= clueList.Count)
-            return "No clues";
-        //Gets a random clue and returns it if it was not previousl
-        int randomClue = Random.Range(0, clueList.Count);
-        foreach (string clue in foundClues)
-        {
-            if (clue == clueList[randomClue])
-            {
-                return GetText();
-            }
-        }
-        foundClues.Add(clueList[randomClue]);
-        return clueList[randomClue];
-    }
 
 
     public void ChangeLight()
