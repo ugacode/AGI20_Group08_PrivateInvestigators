@@ -71,19 +71,6 @@ nav.nav-center ul li a {
 	font-size: large;
 }
 
-/* PUSHPIN */
-.pin-top {
-  position: relative;
-}
-
-.pin-bottom {
-  position: relative;
-}
-
-.pinned {
-  position: fixed !important;
-}
-
 /* MAIN CONTENT */
 main h1 {
 	padding: 20px;
@@ -96,4 +83,8 @@ main h3 {
 
 .carousel {
 	padding-bottom: 40px;
+}
+
+.modal p, .modal a {
+	font-size: x-large;
 }

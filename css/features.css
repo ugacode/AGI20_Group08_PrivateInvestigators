@@ -71,15 +71,6 @@ nav.nav-center ul li a {
 	font-size: large;
 }
 
-/* PUSHPIN */
-.pin-top {
-  position: relative;
-}
-
-.pin-bottom {
-  position: relative;
-}
-
 .pinned {
   position: fixed !important;
 }
@@ -115,4 +106,8 @@ main .col:nth-of-type(1) h1 {
 
 .card-panel {
 	border-radius: 10px;
+}
+
+.modal p, .modal a {
+	font-size: x-large;
 }
