@@ -71,6 +71,11 @@ nav.nav-center ul li a {
 	font-size: large;
 }
 
+.email a {
+	color: white;
+	text-decoration: underline;
+}
+
 /* MAIN CONTENT */
 main img {
 	padding: 20px;
@@ -116,4 +121,13 @@ iframe {
 
 .modal p, .modal a {
 	font-size: x-large;
+}
+
+.circle {
+	padding: 70px;
+}
+
+.collapsible, .collapsible * {
+	border: none;
+	box-shadow: none;
 }

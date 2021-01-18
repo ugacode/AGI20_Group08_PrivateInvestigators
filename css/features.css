@@ -71,6 +71,11 @@ nav.nav-center ul li a {
 	font-size: large;
 }
 
+.email a {
+	color: white;
+	text-decoration: underline;
+}
+
 .pinned {
   position: fixed !important;
 }
@@ -110,4 +115,9 @@ main .col:nth-of-type(1) h1 {
 
 .modal p, .modal a {
 	font-size: x-large;
+}
+
+.card-panel a {
+	color: white;
+	text-decoration: underline;
 }

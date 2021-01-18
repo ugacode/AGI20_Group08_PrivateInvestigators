@@ -71,6 +71,11 @@ nav.nav-center ul li a {
 	font-size: large;
 }
 
+.email a {
+	color: white;
+	text-decoration: underline;
+}
+
 /* MAIN CONTENT */
 main h1 {
 	padding: 20px;
